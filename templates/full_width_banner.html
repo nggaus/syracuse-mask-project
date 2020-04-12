@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static cms_tags sekizai_tags %}
+{% block content %}
+    <div class="jumbotron-fluid">
+        {% placeholder "jumbotron-content" %}
+    </div>
+    <div class="container-fluid">
+        {% placeholder "content" %}
+    </div>
+{% endblock %}

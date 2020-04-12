@@ -1,49 +1,83 @@
 {% load staticfiles i18n cms_tags menu_tags sekizai_tags %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-  <head>
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="{% page_attribute meta_description %}">
+    <link rel="icon" href="{% static 'images/redcross.ico' %}">
     <title>{% block title %}{% page_attribute page_title %} - {{ request.site.name }}{% endblock title %}</title>
-
     <!-- Bootstrap -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="{% static 'css/syracuse_mask.css' %}" rel="stylesheet">
     {% render_block "css" %}
     {{ ALDRYN_SNAKE.render_head }}
-  </head>
-  <body>
-    {% cms_toolbar %}
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Brand</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43715491-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                {% with dropdown=True %}
-                    {% show_menu 0 100 100 100 "includes/menu.html" %}
-                {% endwith %}
-            </ul>
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-43715491-3');
+    </script>
+</head>
+<body>
+<!-- Django CMS admin menu only seen by those logged in or ?edit=true -->
+{% cms_toolbar %}
+<div class="container-fluid">
+    <!-- Allow visually impaired to skip menu and read the page -->
+    <a href="#main-content" class="sr-only">Skip to main content</a>
+    <div id="masthead" class="row">
+        <div id="site-logo" class="col-12">
+            <!-- static placeholder allows content added in cms to show same on every page -->
+            {% static_placeholder "masthead" %}
         </div>
-    </nav>
-
-    <div class="container py-3">
-        {% block content %}
-            <p>Hello world! This is the Bootstrap 4 Boilerplate.</p>
-        {% endblock %}
+        <!-- your cms pages menu for public -->
+        <nav class="navbar navbar-expand-lg col-12 navbar-dark bg-success text-white">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    {% with dropdown=True %}
+                        {% show_menu 0 100 100 100 "includes/menu.html" %}
+                    {% endwith %}
+                </ul>
+            </div>
+        </nav>
     </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-    {% render_block "js" %}
-    {{ ALDRYN_SNAKE.render_tail }}
-  </body>
+    <!-- Where all templates fill in page content you provide in cms -->
+    <main id="main-content" role="main" class="row my-5">
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
+<!-- basic footer -->
+<footer id="site-footer" class="m-0 py-3 bg-dark text-white">
+    <div class="container">
+        <div id="site-copyright">
+            Copyright &copy; Nancy Gauss {% now "Y" %} All rights reserved.
+        </div>
+        <div id="site-footer-content">
+            <!-- static placeholder allows content added in cms to show same on every page -->
+            {% static_placeholder "footer" %}
+        </div>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% render_block "js" %}
+{{ ALDRYN_SNAKE.render_tail }}
+</body>
 </html>

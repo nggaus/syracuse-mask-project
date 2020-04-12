@@ -3,15 +3,15 @@
 {% for child in children %}
     <li class="nav-item {% if child.children and dropdown %}dropdown icon-dropdown{% endif %}{% if child.selected %} active{% endif %}">
         <a
-            class="nav-link{% if child.children and dropdown %} dropdown-toggle{% endif %}"
-            {% if child.children and dropdown %}
+                class="nav-link{% if child.children and dropdown %} dropdown-toggle{% endif %} text-light"
+                {% if child.children and dropdown %}
                 data-toggle="dropdown"
                 id="dropdown-{{ child.get_menu_title|slugify }}"
                 href="#"
-            {% else %}
+                {% else %}
                 href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"
-            {% endif %}
-            >
+                {% endif %}
+        >
             {{ child.get_menu_title }}
         </a>
         {% if child.children and dropdown %}

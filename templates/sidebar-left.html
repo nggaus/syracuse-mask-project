@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+{% block content %}
+<div class="row">
+    <div class="col-12 col-md-3 px-4 py-3">
+        {% placeholder "sidebar" %}
+    </div>
+    <div class="col-12 col-md-9">
+        <div class="col-12">
+            <h1>
+                {% page_attribute "page_title" %}
+            </h1>
+        </div>
+        <div class="col-12">
+            {% placeholder "content" %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
