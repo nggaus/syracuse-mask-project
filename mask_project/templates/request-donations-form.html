@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load staticfiles cms_tags %}
+{% block page_content %}
+    <div class="container">
+        <div class="row">
+            {% placeholder "donation_form_instructions" %}
+        </div>
+        {% if form %}
+            <div class="row">
+                <div class="card col-12 col-md-10 col-lg-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Request PPE Donations
+                        </h5>
+                        <form class="form form-horizontal" role="form" method="post"
+                              action="{% url 'request-donations' %}">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <ul class="errorlist">
+                                    Please correct the following issues below:
+                                    {% for message in form.non_field_errors %}
+                                        <li class="error">{{ message|safe }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <div class="form-group{% if form.requesting_organization_name.errors %} has-error{% endif %}">
+                                {{ form.requesting_organization_name.errors }}
+                                <label for="{{ form.requesting_organization_name.auto_id }}">
+                                    {{ form.requesting_organization_name.label }} <span class="text-danger">*</span>
+                                    <span class="glyphicon glyphicon-asterisk required-field"></span>
+                                </label>
+                                <span>
+                                    {{ form.requesting_organization_name }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.drop_off_address.errors %} has-error{% endif %}">
+                                {{ form.drop_off_address.errors }}
+                                <label for="{{ form.drop_off_address.auto_id }}">
+                                    {{ form.drop_off_address.label }} <span class="text-danger">*</span>
+                                    <span class="glyphicon glyphicon-asterisk required-field"></span>
+                                </label>
+                                <span>
+                                    {{ form.drop_off_address }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.drop_off_city.errors %} has-error{% endif %}">
+                                {{ form.drop_off_city.errors }}
+                                <label for="{{ form.drop_off_city.auto_id }}">
+                                    {{ form.drop_off_city.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.drop_off_city }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.drop_off_zip_code.errors %} has-error{% endif %}">
+                                {{ form.drop_off_zip_code.errors }}
+                                <label for="{{ form.drop_off_zip_code.auto_id }}">
+                                    {{ form.drop_off_zip_code.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.drop_off_zip_code }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.drop_off_instructions.errors %} has-error{% endif %}">
+                                {{ form.drop_off_instructions.errors }}
+                                <label for="{{ form.drop_off_instructions.auto_id }}">
+                                    {{ form.drop_off_instructions.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.drop_off_instructions }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.drop_off_times.errors %} has-error{% endif %}">
+                                {{ form.drop_off_times.errors }}
+                                <label for="{{ form.drop_off_times.auto_id }}">
+                                    {{ form.drop_off_times.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.drop_off_times }}
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <h3>PPE Items Requested</h3>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            {{ form.shaped_masks }}
+                                            <label class="form-check-label"
+                                                   for="{{ form.shaped_masks.auto_id }}">
+                                                {{ form.shaped_masks.label }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-check">
+                                            {{ form.rectangular_masks }}
+                                            <label class="form-check-label"
+                                                   for="{{ form.rectangular_masks.auto_id }}">
+                                                {{ form.rectangular_masks.label }}
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-group{% if form.custom_pattern_url.errors %} has-error{% endif %}">
+                                            {{ form.custom_pattern_url.errors }}
+                                            <label for="{{ form.custom_pattern_url.auto_id }}">
+                                                {{ form.custom_pattern_url.label }}
+                                            </label>
+                                            <span>
+                                    {{ form.custom_pattern_url }}
+                                </span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="form-group{% if form.quantity_needed.errors %} has-error{% endif %}">
+                                {{ form.quantity_needed.errors }}
+                                <label for="{{ form.quantity_needed.auto_id }}">
+                                    {{ form.quantity_needed.label }} <span class="text-danger">*</span>
+                                </label>
+                                <small>Note that sewing takes time and even a rough estimate will help.</small>
+                                <span>
+                                    {{ form.quantity_needed }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.contact_first_name.errors %} has-error{% endif %}">
+                                {{ form.contact_first_name.errors }}
+                                <label for="{{ form.contact_first_name.auto_id }}">
+                                    {{ form.contact_first_name.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.contact_first_name }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.contact_last_name.errors %} has-error{% endif %}">
+                                {{ form.contact_last_name.errors }}
+                                <label for="{{ form.contact_last_name.auto_id }}">
+                                    {{ form.contact_last_name.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.contact_last_name }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.contact_email.errors %} has-error{% endif %}">
+                                {{ form.contact_email.errors }}
+                                <label for="{{ form.contact_email.auto_id }}">
+                                    {{ form.contact_email.label }} <span class="text-danger">*</span>
+                                </label>
+                                <span>
+                                    {{ form.contact_email }}
+                                </span>
+                            </div>
+                            <div class="form-group{% if form.contact_phone_number.errors %} has-error{% endif %}">
+                                {{ form.contact_phone_number.errors }}
+                                <label for="{{ form.contact_phone_number.auto_id }}">
+                                    {{ form.contact_phone_number.label }}
+                                </label>
+                                <span>
+                                    {{ form.contact_phone_number }}
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <div class="well-lg">
+                                    <input type="submit" class="btn btn-lg btn-primary col-xs-offset-1" value="Submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

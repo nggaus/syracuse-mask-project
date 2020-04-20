@@ -13,6 +13,11 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="{% static 'css/syracuse_mask.css' %}" rel="stylesheet">
+    {% if extra_css %}
+        {% for css in extra_css %}
+            <link type="text/css" rel="stylesheet" href="{% static css %}"/>
+        {% endfor %}
+    {% endif %}
     {% render_block "css" %}
     {{ ALDRYN_SNAKE.render_head }}
 
@@ -51,8 +56,14 @@
                     {% with dropdown=True %}
                         {% show_menu 0 100 100 100 "includes/menu.html" %}
                     {% endwith %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'request-donations' %}">
+                            Request Donations
+                        </a>
+                    </li>
                 </ul>
             </div>
+
         </nav>
     </div>
     <!-- Where all templates fill in page content you provide in cms -->
@@ -77,6 +88,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% if extra_javascript %}
+    {% for js in extra_javascript %}
+        <script type="text/javascript" src="{% static js %}"></script>
+    {% endfor %}
+{% endif %}
 {% render_block "js" %}
 {{ ALDRYN_SNAKE.render_tail }}
 </body>

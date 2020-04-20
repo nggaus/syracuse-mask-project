@@ -56,15 +56,19 @@ aldryn_addons.settings.load(locals())
 #
 # for guidance on managing these settings.
 
-INSTALLED_APPS.extend([
-    # Extend the INSTALLED_APPS setting by listing additional applications here
-])
-
 # To see the settings that have been applied, use the Django diffsettings
 # management command.
 # See https://docs.divio.com/en/latest/how-to/configure-settings.html#list
 
 # Michelle added below here
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+INSTALLED_APPS.extend([
+    # Extend the INSTALLED_APPS setting by listing additional applications here
+    "mask_project",
+])
+TEMPLATES[0]["DIRS"].extend(os.path.join(BASE_DIR, "mask_project", "templates"))
 TIME_ZONE = 'America/New_York'
 APPEND_SLASH = True
 CMS_PERMISSION = True
