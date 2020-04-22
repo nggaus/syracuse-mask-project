@@ -66,9 +66,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INSTALLED_APPS.extend([
     # Extend the INSTALLED_APPS setting by listing additional applications here
-    "mask_project",
 ])
-TEMPLATES[0]["DIRS"].extend(os.path.join(BASE_DIR, "mask_project", "templates"))
 TIME_ZONE = 'America/New_York'
 APPEND_SLASH = True
 CMS_PERMISSION = True
